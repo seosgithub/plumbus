@@ -1,0 +1,50 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "plumbus"
+require 'yaml'
+require 'optparse'
+
+parser = OptionParser.new do |opts|
+  opts.banner = "Usage: plumbus config"
+end
+parser.parse!
+
+unless config_path = ARGV.pop
+  $stderr.puts parser
+  exit -1
+end
+
+Plumbus::Loader.load config_path
+
+$stderr.puts <<HERE
+         (((                 
+  ((     ((((                
+   ((((((((((((((((((        
+     (((((((((((((           
+  (((((((((((((              
+(((((((((((((               
+        ******              
+         ******             
+          ******             
+          *******            
+           **********        
+            *************    
+         ******************  
+        ***************(**** 
+        *************((/((/**
+       *************((((((((/
+       *************//////(//
+       **********************
+        *********************
+         ******************* 
+          ****************   
+             ***********     
+-----------------------------------------
+HERE
+
+
+while 100
+  $stderr.puts ">Ready to get Riggity Riggity Wrecked Son!"
+  sleep 1000
+end
