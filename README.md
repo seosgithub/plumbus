@@ -40,7 +40,7 @@ the request & response side because a redis queue does not differentiate between
 fashion.
 
 ## Routing schemes
-Every request and response that comes through plumbus (i.e. from a request driver or back through a response driver), contains the following. The transfer format of the message is driver-dependent, as these messages are passed via raw ruby calls, however, the payload must be in msgpack format as all drivers must be able to read the payload correctly.
+Every request and response that comes through plumbus (i.e. from a request driver or back through a response driver), contains the following. The transfer format of the message is driver-dependent, as these messages are passed via raw ruby calls, however, the payload should be a string in msgpack encoded format. The payload standard is not a strict requirement, however, many tools assume the payload is in msgpack format and many response drivers will assume that the payload is also in msgpack format.
 ```ruby
 {
   :sid => "a1a062f25f4e94c2762886069",
