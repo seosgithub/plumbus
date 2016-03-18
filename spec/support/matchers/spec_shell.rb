@@ -18,7 +18,6 @@ RSpec::Matchers.define :have_succeeded do
   end
 end
 
-
 RSpec::Matchers.define :have_failed do
   match do |spec_shell|
     return spec_shell.failed?

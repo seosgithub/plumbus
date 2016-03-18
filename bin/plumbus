@@ -1,17 +1,25 @@
 #!/usr/bin/env ruby
 
+$LOAD_PATH.unshift "#{File.expand_path(File.dirname(__FILE__))}/../lib/"
+
 require "bundler/setup"
 require "plumbus"
 require 'yaml'
 require 'optparse'
 
 parser = OptionParser.new do |opts|
-  opts.banner = "Usage: plumbus config"
+  opts.banner = "Usage: plumbus [-g path] [config]"
+
+  #Generate a new project
+  opts.on "-g path" do |path|
+    Plumbus::FileGenerators.new_project path
+    exit
+  end
+
 end
 parser.parse!
 
 unless config_path = ARGV.pop
-  $stderr.puts parser
   exit -1
 end
 
