@@ -11,7 +11,7 @@ Plubus is an agnostic micro-service router.
   - [x] Distributed by design, even session information
   - [x] Everything is a stream/push. Even HTTP (just a very short stream session!)
   - [x] Mix & Match - Daisy-chainable
-  - [X] Everything's a stream™ - Low latency for large things.
+  - [X] Everything's a stream™ - LLow latency, low memory overhead, and processing before things ''complete transfer' for large things
 
 
 ## Example scenerio
