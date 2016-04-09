@@ -1,5 +1,3 @@
-require 'msgpack'
-
 #Used by actual drivers
 module Plumbus
   module DriverFacilities

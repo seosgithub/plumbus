@@ -1,8 +1,4 @@
-![Plumbus: The micro-service bus](https://raw.githubusercontent.com/sotownsend/plumbus/master/docs/images/banner.png)
-
-[![Gem Version](https://badge.fury.io/rb/iarrogant.svg)](http://badge.fury.io/rb/plumbus)
-[![Build Status](https://travis-ci.org/sotownsend/plumbus.svg)](https://travis-ci.org/sotownsend/plumbus)
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/sotownsend/plumbus/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+![Plumbus: The micro-service bus](https://raw.githubusercontent.com/sotownsend/plumbus/master/docs/images/banner.png) [![Gem Version](https://badge.fury.io/rb/iarrogant.svg)](http://badge.fury.io/rb/plumbus) [![Build Status](https://travis-ci.org/sotownsend/plumbus.svg)](https://travis-ci.org/sotownsend/plumbus) [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/sotownsend/plumbus/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 [![License](http://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/sotownsend/plumbus/blob/master/LICENSE)
 
 # What is this?
@@ -15,6 +11,7 @@ Plubus is an agnostic micro-service router.
   - [x] Distributed by design, even session information
   - [x] Everything is a stream/push. Even HTTP (just a very short stream session!)
   - [x] Mix & Match - Daisy-chainable
+  - [X] Everything's a stream™ - Low latency for large things.
 
 
 ## Example scenerio
@@ -27,17 +24,13 @@ micro-service fashion.  Additionally, you wish to add support for sockio.
 In this example, here's our driver configuration: we're using an HTTP driver (`plumbus_http`) and a SockIO Driver (`plumbus_sockio`) on the request side.
 
   * *Request Side*
-    * `plumbus_http_request`
-    * `plumbus_sockio_request`
+    * `plumbus_http`
+    * `plumbus_sockio`
   * *Response Side*
-    * `plumbus_http_response`
+    * `plumbus_http_backend_shim`
     * `plumbus_redis`
 
-> Notice that some of the driver names include `_request` appended to them; Some drivers only support being on the *request* or *response* side. The semantics of the protocol
-the driver supports generally dictate this.  For example, `plumbus_http_stateless_request` accepts incomming HTTP connections from clients. The response side of HTTP
-requires that the driver *make* connections, which is a different semantic than accepting connections.  On the other hand, the `plumbus_redis` driver works on both
-the request & response side because a redis queue does not differentiate between the client and server directions; both sides are able to initiate a request in the same
-fashion.
+> Each driver may support `request`, `response`, or `request and response`; `request` and `response` are known as `sides`. The protocol & conventions (e.g. client-server) that a driver links to typically determine which `side(s)` the driver supports. E.g. `plumbus_http` only supports the `request` side, but `plumbus_redis` supports both `request` and `response`.
 
 ## Routing schemes
 Every request and response that comes through plumbus (i.e. from a request driver or back through a response driver), contains the following. The transfer format of the message is driver-dependent, as these messages are passed via raw ruby calls, however, the payload should be a string in msgpack encoded format. The payload standard is not a strict requirement, however, many tools assume the payload is in msgpack format and many response drivers will assume that the payload is also in msgpack format.

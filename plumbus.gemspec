@@ -24,5 +24,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec", "~> 3.4"
   spec.add_development_dependency "pry", "~> 0.10"
   spec.add_runtime_dependency "activesupport", "~> 4.2"
-  spec.add_runtime_dependency "msgpack", "~> 0.7"
 end

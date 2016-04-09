@@ -1,4 +1,3 @@
-require 'msgpack'
 require './spec/spec_helper'
 
 #Facility functions are tested as they are imported inside a driver (Port)
@@ -35,13 +34,13 @@ describe "Driver facilities & Routing" do
   let(:response2_received_signals) { response2_instance._spec_received_signals }
   let(:request_sid) { 'session' }
   let(:request_action) { 'foo' }
-  let(:request_payload) { 'holah'.to_msgpack }
+  let(:request_payload) { 'holah'}
   let(:response_sid) { 'session' }
   let(:response_action) { 'foo' }
-  let(:response_payload) { 'holah'.to_msgpack }
+  let(:response_payload) { 'holah'}
   let(:response2_sid) { 'session' }
   let(:response2_action) { 'foo2' }
-  let(:response2_payload) { 'holah'.to_msgpack }
+  let(:response2_payload) { 'holah' }
 
   let(:wanted_request_received_signal_count) { 0 }
   let(:wanted_request_received_message_count) { 0 }
