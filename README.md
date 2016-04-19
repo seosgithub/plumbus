@@ -11,7 +11,7 @@ Plubus is an agnostic micro-service router.
   - [x] Distributed by design, even session information
   - [x] Everything is a stream/push. Even HTTP (just a very short stream session!)
   - [x] Mix & Match - Daisy-chainable
-  - [X] Everything's a stream™ - LLow latency, low memory overhead, and processing before things ''complete transfer' for large things
+  - [X] Everything's a stream™ - Low latency, low memory overhead, and processing before things 'complete transfer' for large things
 
 
 ## Example scenerio
@@ -33,20 +33,20 @@ In this example, here's our driver configuration: we're using an HTTP driver (`p
 > Each driver may support `request`, `response`, or `request and response`; `request` and `response` are known as `sides`. The protocol & conventions (e.g. client-server) that a driver links to typically determine which `side(s)` the driver supports. E.g. `plumbus_http` only supports the `request` side, but `plumbus_redis` supports both `request` and `response`.
 
 ## Routing schemes
-Every request and response that comes through plumbus (i.e. from a request driver or back through a response driver), contains the following. The transfer format of the message is driver-dependent, as these messages are passed via raw ruby calls, however, the payload should be a string in msgpack encoded format. The payload standard is not a strict requirement, however, many tools assume the payload is in msgpack format and many response drivers will assume that the payload is also in msgpack format.
+Every request and response that comes through plumbus (i.e. from a request driver or back through a response driver), contains the following. The transfer format of the message is driver-dependent, as these messages are passed via raw ruby calls.
 ```ruby
 {
   :sid => "a1a062f25f4e94c2762886069",
   :mid => "8b43601a1a062f25f4e94c2762886069,
   :path => '/x/y/z',
-  :payload => <user defined msgpack descendents>
+  :payload => <user defined data>
 }
 ```
 
   * `sid` - The session-identifier. Each request has a unique `sid`.  When a response driver 'replies', it sends the `sid` back to plumbus which then forwards it to the correct request driver 
   * `mid` - The message identifier. In the event a message fails to route, the message-identifier is used to signal the sender (which could be the request or response side, w.r.t to plumbus), with the mid of the failed send (signal `undeliverable`)
   * `path` - The path is used to route requests. We recommend you use unix style paths for all your requests as it makes doing things like HTTP shims easier. Else, if your HTTP requests, assuming you used a sane http request driver, would end up looking something like `myserver.io/admin_dashboard_user_new` instead of `myserver.io/admin/dashboard/user/new`.
-  * `payload` - The payload is arbitrary but must be compatible with the msgpack format. This upports conversion directly to JSON under most circumstances and support for raw binary in others.
+  * `payload` - The payload is arbitrary.
 
 ## Signals
 Under certain circumstances, signals are propogated to request drivers & response-drivers. 
